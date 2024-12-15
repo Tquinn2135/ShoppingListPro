@@ -18,6 +18,13 @@ public partial class MainPage : ContentPage
         Title = "Shopping List Pro";
         this.Loaded += MainPage_Loaded;
         LP.Unloaded += LP_UnLoaded;
+        lstData.Refreshing += LstDataOnRefreshing;
+    }
+
+    async void LstDataOnRefreshing(object sender, EventArgs e)
+    {
+        LoadData();
+        lstData.IsRefreshing = false;
     }
 
     private void LP_UnLoaded(object sender, EventArgs e)
@@ -96,5 +103,23 @@ public partial class MainPage : ContentPage
         
         LoadData();
 
+    }
+
+    async void ClearList_OnClicked(object sender, EventArgs e)
+    {
+        var data = JsonConvert.SerializeObject(new UserData(null,null, App.SessionKey));
+
+        var client = new HttpClient();
+
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Delete,
+            RequestUri = new Uri("https://joewetzel.com/fvtc/account/data"),
+            Content = new StringContent(data, Encoding.UTF8, "application/json")
+        };
+        
+        await client.SendAsync(request);
+        
+        LoadData();
     }
 }

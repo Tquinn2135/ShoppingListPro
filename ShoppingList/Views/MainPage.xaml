@@ -23,7 +23,7 @@
             <Button Grid.Column="1" Grid.Row="0" Text="Add" Clicked="AddData_OnClicked"/>
             <Button Grid.Column="2" Grid.Row="0" Text="Logout" Clicked="Logout_OnClicked"/>
             
-            <ListView x:Name = "lstData" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" >
+            <ListView IsPullToRefreshEnabled="True" x:Name = "lstData" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding dataValue}">
@@ -35,7 +35,7 @@
                 </ListView.ItemTemplate>
             </ListView>
             
-            <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Text="Clear List"/>
+            <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Text="Clear List" Clicked="ClearList_OnClicked"/>
         </Grid>
         
     </ContentPage.Content>
